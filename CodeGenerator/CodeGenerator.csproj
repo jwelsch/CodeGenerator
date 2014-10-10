@@ -51,19 +51,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReplacementFile.cs" />
     <Compile Include="ReplacementPair.cs" />
-    <None Include="Test Files\CSharpTemplate.cs" />
+    <None Include="postbuild.bat" />
+    <None Include="packages.config" />
+    <None Include="prebuild.bat" />
+    <None Include="Test Files\CSharpTemplate.template" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Test Files\CSharpReplacement.dat" />
+    <None Include="Test Files\CSharpReplacement.replace" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(SolutionDir)AssemblyVersionIncrement-1.0.0.3\AssemblyVersionIncrement.exe" Build "$(ProjectDir)Properties\AssemblyInfo.cs"</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)prebuild.bat" "$(ConfigurationName)" "$(SolutionDir)" "$(ProjectDir)"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(ProjectDir)Test Files\CSharpTemplate.cs" "$(TargetDir)"
-xcopy /y "$(ProjectDir)Test Files\CSharpReplacement.dat" "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)postbuild.bat" "$(ConfigurationName)" "$(SolutionDir)" "$(ProjectDir)" "$(TargetDir)" "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
