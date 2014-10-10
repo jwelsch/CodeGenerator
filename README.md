@@ -27,5 +27,5 @@ The replacement file should contain the following name/value pairs separated by 
 placeholder-1=replacement text 1\r\n
 placeholder-2=replacement text 2\r\n
 ...
-placeholder2=replacement text n\r\n
+placeholder2=replacement text n
 ```
