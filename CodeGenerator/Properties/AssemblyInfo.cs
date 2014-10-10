@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "CodeGenerator" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "TechSmith Corporation" )]
+[assembly: AssemblyCompany( "DigiModern Software Solutions Incorporated" )]
 [assembly: AssemblyProduct( "CodeGenerator" )]
-[assembly: AssemblyCopyright( "Copyright © TechSmith Corporation 2014" )]
+[assembly: AssemblyCopyright( "Copyright © DigiModern Software Solutions Incorporated 2014" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "1.0.0.42" )]
-[assembly: AssemblyFileVersion( "1.0.0.42" )]
+[assembly: AssemblyVersion( "1.0.0.43" )]
+[assembly: AssemblyFileVersion( "1.0.0.43" )]
