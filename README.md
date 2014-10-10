@@ -10,6 +10,7 @@ CodeGenerator.exe code_template_path replacement_path generated_code_path [-over
 ```
 
 Arguments:
+
 * ```code_template_path```: (Mandatory) Path to the file containing the template file used to generate code.
 * ```replacement_path```: (Mandatory) Path to the file containing the replacement strings that will be used in the template file.
 * ```generated_code_path```: (Mandatory) Path of the file that will contain the generated code.
