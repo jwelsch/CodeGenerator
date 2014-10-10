@@ -1,3 +1,34 @@
-﻿$<namespace>$=CommandLineLib
+﻿[[]]
 $<ValueType>$=Int32
+[[]]
+$<ValueType>$=UInt32
+[[]]
+$<ValueType>$=String
+$<ParseMethodName>$=Copy
+[]
 $<ParseMethodName>$=Parse
+$<Namespace>$=CommandLineLib
+
+{ "Pairs": [
+   { "placeholder": "$<ParseMethodName>$",
+     "replacement": "Parse" },
+   { "placeholder": "$<Namespace>$",
+     "replacement": "CommandLineLib" }
+  ],
+  "Nodes": [
+   { "Pairs": [
+      { "placeholder": "$<ValueType>$",
+        "replacement": "Int32" },
+     ]
+   { "Pairs": [
+      { "placeholder": "$<ValueType>$",
+        "replacement": "UInt32" }
+     ]
+   { "Pairs": [
+      { "placeholder": "$<ValueType>$",
+        "replacement": "String" },
+      { "placeholder": "$<ParseMethodName>$",
+        "replacement": "Copy" }
+     ]
+   ]
+}
