@@ -18,11 +18,14 @@ Arguments:
 
 ## Code Template File
 
-The code template file should contain code with placeholder text that will be replaced when CodeGenerator is run.  Demarcation can be anything that is not confused with the legitimate code, but should not contain any equal signs.
+The code template file should contain code with placeholder text that will be replaced when CodeGenerator is run.  Demarcation can be anything that is not confused with the legitimate code, but should not contain any equal signs or spaces.
 
 ## Replacement File
 
 The replacement file should contain the following name/value pairs separated by a carriage return and newline:
 ```
-placeholder=replacement text
+placeholder-1=replacement text 1\r\n
+placeholder-2=replacement text 2\r\n
+...
+placeholder2=replacement text n\r\n
 ```
