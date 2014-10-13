@@ -33,13 +33,13 @@ The code template file should contain code with placeholder text that will be re
 The replacement file contains placeholder and replacement text pairs.  Placeholder and replacement text should be separated by an equal sign ('=').  Pairs of placeholder and replacement text should be separated by a carriage return ('\r') and newline ('\n').  The file format supports a nested structure that can be used to special case replacement text.  Square brackets ('[' and ']') denote groups of placeholder and replacement text pairs that are used to generate code files.  Example:
 ```
 [
-   placeholder-1=replacement text 1\r\n
-   placeholder-2=replacement text 2\r\n
+   placeholder-1=replacement text 1
+   placeholder-2=replacement text 2
    [
-     placeholder-3=replacement text 3A\r\n
+     placeholder-3=replacement text 3A
    ]
    [
-     placeholder-3=replacement text 3B\r\n
+     placeholder-3=replacement text 3B
    ]
 ]
 ```
