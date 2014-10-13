@@ -32,9 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLineLib, Version=1.0.0.269, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CommandLineLib, Version=1.0.0.273, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\CommandLineLib-1.0.0.273\CommandLineLib.dll</HintPath>
+      <HintPath>..\CommandLineLib-1.0.0.275\CommandLineLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

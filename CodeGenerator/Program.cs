@@ -6,16 +6,31 @@ namespace CodeGenerator
 {
    class Program
    {
+      private enum ReportLevel
+      {
+         Silent,
+         Normal,
+         Verbose
+      }
+
       static int Main( string[] args )
       {
          var result = 0;
-         var silent = false;
+         var reportLevel = ReportLevel.Normal;
 
          try
          {
             var commandLine = new CommandLine<CommandLineArguments>();
             var arguments = commandLine.Parse( args );
-            silent = arguments.Silent;
+
+            if ( arguments.Silent )
+            {
+               reportLevel = ReportLevel.Silent;
+            }
+            else if ( arguments.Verbose )
+            {
+               reportLevel = ReportLevel.Verbose;
+            }
 
             if ( !File.Exists( arguments.CodeTemplatePath ) )
             {
@@ -32,7 +47,7 @@ namespace CodeGenerator
                throw new ArgumentException( String.Format( "The output file \"{0}\" already exists.", arguments.GeneratedCodePath ) );
             }
 
-            if ( !silent )
+            if ( reportLevel == ReportLevel.Verbose )
             {
                Console.WriteLine( "Reading replacement file \"{0}\".", arguments.ReplacementPath );
             }
@@ -40,17 +55,20 @@ namespace CodeGenerator
             var replacementFile = new ReplacementFile();
             var replacementPairs = replacementFile.Parse( arguments.ReplacementPath );
 
-            if ( !silent )
+            if ( reportLevel == ReportLevel.Verbose )
             {
                Console.WriteLine( "Found {0} replacement pairs.", replacementPairs.Count );
             }
 
             Generator generator = null;
-            var first = true;
+            var fileCount = 0;
 
-            if ( silent )
+            if ( reportLevel != ReportLevel.Verbose )
             {
-               generator = new Generator( null, null );
+               generator = new Generator( null, ( outputPath ) =>
+               {
+                  fileCount++;
+               } );
             }
             else
             {
@@ -60,8 +78,8 @@ namespace CodeGenerator
                },
                ( outputPath ) =>
                {
-                  Console.WriteLine( "{0}Generating output file \"{1}\".", first ? "" : "\n", outputPath );
-                  first = false;
+                  fileCount++;
+                  Console.WriteLine( "{0}Generating output file \"{1}\".", fileCount == 1 ? "" : "\n", outputPath );
                } );
             }
 
@@ -73,12 +91,15 @@ namespace CodeGenerator
             }
             finally
             {
-               Console.WriteLine();
+               if ( reportLevel == ReportLevel.Verbose )
+               {
+                  Console.WriteLine();
+               }
             }
 
-            if ( !silent )
+            if ( reportLevel != ReportLevel.Silent )
             {
-               Console.WriteLine( "Code generation completed successfully." );
+               Console.WriteLine( String.Format( "Generated {0} code files successfully.", fileCount ) );
             }
          }
          catch ( Exception ex )
@@ -87,7 +108,7 @@ namespace CodeGenerator
 
             System.Diagnostics.Trace.WriteLine( ex );
 
-            if ( !silent )
+            if ( reportLevel != ReportLevel.Silent )
             {
                Console.WriteLine( "Error generating code!" );
                Console.WriteLine( ex );

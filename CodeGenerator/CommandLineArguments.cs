@@ -33,8 +33,15 @@ namespace CodeGenerator
          private set;
       }
 
-      [Switch( "-", "silent", Optional = true, Description = "If this argument is present no output is written to the console." )]
+      [Switch( "-", "silent", Optional = true, Groups = new int[] { 1 }, Description = "If this argument is present no output is written to the console.  Mutually exclusive with \"-verbose\"." )]
       public bool Silent
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "verbose", Optional = true, Groups = new int[] { 2 }, Description = "If this argument is present detailed output is written to the output.  Mutually exclusive with \"-silent\"." )]
+      public bool Verbose
       {
          get;
          private set;

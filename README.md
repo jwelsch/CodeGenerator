@@ -6,7 +6,7 @@ Dynamically generates code.
 
 General command line:
 ```
-CodeGenerator.exe code_template_path replacement_path generated_code_path [-overwrite] [-silent]
+CodeGenerator.exe code_template_path replacement_path generated_code_path [-overwrite] [[-silent]|[-verbose]]
 ```
 
 Arguments:
@@ -15,7 +15,8 @@ Arguments:
 * ```replacement_path```: (Mandatory) Path to the file containing the replacement strings that will be used in the template file.
 * ```generated_code_path```: (Mandatory) Path of the file that will contain the generated code.  This may contain placeholders found in the replacement file.
 * ```-overwrite```: (Optional) If this argument is present the generated output file will overwrite any file that has the same path.
-* ```-silent```: (Optional) If this argument is present no output is written to the console.
+* ```-silent```: (Optional) If this argument is present no output is written to the console.  Mutually exclusive with "-verbose".
+* ```-verbose```: (Optional) If this argument is present detailed output is written to the output.  Mutually exclusive with "-silent".
 
 ## Code Template File
 
