@@ -26,8 +26,15 @@ namespace CodeGenerator
          private set;
       }
 
-      [Switch( "-", "overwrite", Optional = true, Description = "If this argument is passed to the application the generated output file will overwrite any file that has the same path." )]
+      [Switch( "-", "overwrite", Optional = true, Description = "If this argument is present the generated output file will overwrite any file that has the same path." )]
       public bool Overwrite
+      {
+         get;
+         private set;
+      }
+
+      [Switch( "-", "silent", Optional = true, Description = "If this argument is present no output is written to the console." )]
+      public bool Silent
       {
          get;
          private set;

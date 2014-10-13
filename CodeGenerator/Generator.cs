@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace CodeGenerator
 {
+   public delegate void OutputFileCallback( string path );
    public delegate void ProgressCallback( int lineNumber );
 
    public class Generator
@@ -15,9 +16,16 @@ namespace CodeGenerator
          set;
       }
 
-      public Generator( ProgressCallback progressListener )
+      private OutputFileCallback OutputFileListener
+      {
+         get;
+         set;
+      }
+
+      public Generator( ProgressCallback progressListener, OutputFileCallback outputFileListener )
       {
          this.ProgressListener = progressListener;
+         this.OutputFileListener = outputFileListener;
       }
 
       public void Generate( string templateFilePath, IEnumerable<IEnumerable<ReplacementPair>> replacementPairs, OutputFilePath outputFilePath, bool overwrite )
@@ -26,7 +34,19 @@ namespace CodeGenerator
 
          foreach ( var pairSet in replacementPairs )
          {
-            using ( var writer = new StreamWriter( outputFilePath.Generate( pairSet ) ) )
+            var outputPath = outputFilePath.Generate( pairSet );
+
+            if ( this.OutputFileListener != null )
+            {
+               this.OutputFileListener( outputPath );
+            }
+
+            if ( File.Exists( outputPath ) && !overwrite )
+            {
+               throw new ArgumentException( String.Format( "The output file \"{0}\" already exists.", outputPath ), "overwrite" );
+            }
+
+            using ( var writer = new StreamWriter( outputPath ) )
             {
                using ( var reader = new StreamReader( templateFilePath ) )
                {

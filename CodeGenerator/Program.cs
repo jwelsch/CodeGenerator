@@ -6,12 +6,16 @@ namespace CodeGenerator
 {
    class Program
    {
-      static void Main( string[] args )
+      static int Main( string[] args )
       {
+         var result = 0;
+         var silent = false;
+
          try
          {
             var commandLine = new CommandLine<CommandLineArguments>();
             var arguments = commandLine.Parse( args );
+            silent = arguments.Silent;
 
             if ( !File.Exists( arguments.CodeTemplatePath ) )
             {
@@ -28,16 +32,38 @@ namespace CodeGenerator
                throw new ArgumentException( String.Format( "The output file \"{0}\" already exists.", arguments.GeneratedCodePath ) );
             }
 
-            Console.WriteLine( "Reading replacement file \"{0}\".", arguments.ReplacementPath );
+            if ( !silent )
+            {
+               Console.WriteLine( "Reading replacement file \"{0}\".", arguments.ReplacementPath );
+            }
+
             var replacementFile = new ReplacementFile();
             var replacementPairs = replacementFile.Parse( arguments.ReplacementPath );
-            Console.WriteLine( "Found {0} replacement pairs.", replacementPairs.Count );
 
-            Console.WriteLine( "Generating output file \"{0}\".", arguments.GeneratedCodePath );
-            var generator = new Generator( ( lineNumber ) =>
+            if ( !silent )
             {
-               Console.Write( "\r  Processing line {0}.", lineNumber );
-            } );
+               Console.WriteLine( "Found {0} replacement pairs.", replacementPairs.Count );
+            }
+
+            Generator generator = null;
+            var first = true;
+
+            if ( silent )
+            {
+               generator = new Generator( null, null );
+            }
+            else
+            {
+               generator = new Generator( ( lineNumber ) =>
+               {
+                  Console.Write( "\r  Processing line {0}.", lineNumber );
+               },
+               ( outputPath ) =>
+               {
+                  Console.WriteLine( "{0}Generating output file \"{1}\".", first ? "" : "\n", outputPath );
+                  first = false;
+               } );
+            }
 
             var outputFilePath = new OutputFilePath( arguments.GeneratedCodePath );
 
@@ -50,15 +76,25 @@ namespace CodeGenerator
                Console.WriteLine();
             }
 
-            Console.WriteLine( "Code generation completed successfully." );
+            if ( !silent )
+            {
+               Console.WriteLine( "Code generation completed successfully." );
+            }
          }
          catch ( Exception ex )
          {
+            result = 1;
+
             System.Diagnostics.Trace.WriteLine( ex );
-            Console.WriteLine();
-            Console.WriteLine( "Error generating code!" );
-            Console.WriteLine( ex );
+
+            if ( !silent )
+            {
+               Console.WriteLine( "Error generating code!" );
+               Console.WriteLine( ex );
+            }
          }
+
+         return result;
       }
    }
 }
