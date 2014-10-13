@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace CodeGenerator
 {
@@ -44,7 +45,7 @@ namespace CodeGenerator
             {
                if ( tree.Pairs[i].Placeholder == combinedPairs[j].Placeholder )
                {
-                  combinedPairs[i] = tree.Pairs[i];
+                  combinedPairs[j] = tree.Pairs[i];
                   found = true;
                   break;
                }
@@ -56,7 +57,10 @@ namespace CodeGenerator
             }
          }
 
-         output.Add( combinedPairs.AsReadOnly() );
+         if ( tree.Nodes.Count == 0 )
+         {
+            output.Add( combinedPairs.AsReadOnly() );
+         }
 
          foreach ( var node in tree.Nodes )
          {
@@ -64,6 +68,25 @@ namespace CodeGenerator
          }
 
          return output;
+      }
+
+      public void Debug()
+      {
+         ReplacementTree.DebugTraverse( this, "" );
+      }
+
+      private static void DebugTraverse( ReplacementTree tree, string indent )
+      {
+         foreach ( var pair in tree.Pairs )
+         {
+            System.Diagnostics.Trace.WriteLine( String.Format( "{0}{1}={2}", indent, pair.Placeholder, pair.Replacement ) );
+         }
+
+         var newIndent = indent + "   ";
+         foreach ( var node in tree.Nodes )
+         {
+            ReplacementTree.DebugTraverse( node, newIndent );
+         }
       }
    }
 }

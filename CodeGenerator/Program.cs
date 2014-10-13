@@ -39,9 +39,11 @@ namespace CodeGenerator
                Console.Write( "\r  Processing line {0}.", lineNumber );
             } );
 
+            var outputFilePath = new OutputFilePath( arguments.GeneratedCodePath );
+
             try
             {
-               generator.Generate( arguments.CodeTemplatePath, replacementPairs, arguments.GeneratedCodePath, arguments.Overwrite );
+               generator.Generate( arguments.CodeTemplatePath, replacementPairs, outputFilePath, arguments.Overwrite );
             }
             finally
             {

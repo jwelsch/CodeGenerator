@@ -13,7 +13,7 @@ Arguments:
 
 * ```code_template_path```: (Mandatory) Path to the file containing the template file used to generate code.
 * ```replacement_path```: (Mandatory) Path to the file containing the replacement strings that will be used in the template file.
-* ```generated_code_path```: (Mandatory) Path of the file that will contain the generated code.
+* ```generated_code_path```: (Mandatory) Path of the file that will contain the generated code.  This may contain placeholders found in the replacement file.
 * ```-overwrite```: (Optional) If this argument is passed to the application the generated output file will overwrite any file that has the same path.
 
 ## Code Template File
@@ -27,5 +27,5 @@ The replacement file should contain the following name/value pairs separated by 
 placeholder-1=replacement text 1\r\n
 placeholder-2=replacement text 2\r\n
 ...
-placeholder2=replacement text n
+placeholder-n=replacement text n
 ```

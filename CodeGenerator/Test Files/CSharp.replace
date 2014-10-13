@@ -1,0 +1,17 @@
+﻿[
+   $<ParseMethodName>$=Parse
+   $<Namespace>$=CommandLineLib
+   [
+      $<ValueType>$=Int32
+   ]
+   [
+      $<ValueType>$=UInt32
+   ]
+   [
+      $<ValueType>$=String
+      $<ParseMethodName>$=Copy
+      [
+        $<Namespace>$=FooLib
+      ]
+   ]
+]

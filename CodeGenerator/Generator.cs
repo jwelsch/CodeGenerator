@@ -20,34 +20,43 @@ namespace CodeGenerator
          this.ProgressListener = progressListener;
       }
 
-      public void Generate( string templateFilePath, IEnumerable<ReplacementPair> replacementPairs, string outputFilePath, bool overwrite )
+      public void Generate( string templateFilePath, IEnumerable<IEnumerable<ReplacementPair>> replacementPairs, OutputFilePath outputFilePath, bool overwrite )
       {
-         using ( var writer = new StreamWriter( outputFilePath ) )
+         var line = new StringBuilder();
+
+         foreach ( var pairSet in replacementPairs )
          {
-            using ( var reader = new StreamReader( templateFilePath ) )
+            using ( var writer = new StreamWriter( outputFilePath.Generate( pairSet ) ) )
             {
-               var line = new StringBuilder();
-               var lineNumber = 0;
-
-               while ( !reader.EndOfStream )
+               using ( var reader = new StreamReader( templateFilePath ) )
                {
-                  lineNumber++;
+                  var lineNumber = 0;
 
-                  if ( this.ProgressListener != null )
+                  while ( !reader.EndOfStream )
                   {
-                     this.ProgressListener( lineNumber );
+                     lineNumber++;
+
+                     if ( this.ProgressListener != null )
+                     {
+                        this.ProgressListener( lineNumber );
+                     }
+
+                     line.Clear();
+                     line.Append( reader.ReadLine() );
+
+                     if ( line.Length > 0 )
+                     {
+                        foreach ( var replacementPair in pairSet )
+                        {
+                           line.Replace( replacementPair.Placeholder, replacementPair.Replacement );
+                        }
+                     }
+
+                     writer.WriteLine( line.ToString() );
                   }
-
-                  line.Clear();
-                  line.Append( reader.ReadLine() );
-
-                  foreach ( var replacementPair in replacementPairs )
-                  {
-                     line.Replace( replacementPair.Placeholder, replacementPair.Replacement );
-                  }
-
-                  writer.WriteLine( line.ToString() );
                }
+
+               writer.WriteLine();
             }
          }
       }
