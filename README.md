@@ -20,6 +20,7 @@ Arguments:
 ## Code Template File
 
 The code template file should contain code with placeholder text that will be replaced when CodeGenerator is run.  Demarcation can be anything that is not confused with the legitimate code.  Characters that are illegal in placeholders include:
+
 * Space (' ')
 * Newline ('\n')
 * Carriage return ('\r')
