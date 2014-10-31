@@ -6,7 +6,7 @@ Dynamically generates code.
 
 General command line:
 ```
-CodeGenerator.exe code_template_path replacement_path generated_code_path [-overwrite] [[-silent]|[-verbose]]
+CodeGenerator.exe <code_template_path> <replacement_path> <generated_code_path> [-overwrite] [[-silent]|[-verbose]]
 ```
 
 Arguments:
